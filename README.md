@@ -21,3 +21,12 @@ Tobi makes battle code
 Tanner sorts out schedule
 
 Greyson makes platformer code
+
+## Schedule
+Sprint 1:
+
+Start base code - done
+
+Start base character - done
+
+Come up idea of game - done
