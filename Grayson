@@ -1,0 +1,102 @@
+import pygame
+
+# Initialize Pygame
+pygame.init()
+
+# Set the window size and title
+width, height = 800, 600
+screen = pygame.display.set_mode((width, height))
+pygame.display.set_caption("Pygame Rectangle Movement")
+
+# Create a rectangle with a starting position
+rect_x, rect_y = 50, 50
+rect_width, rect_height = 50, 50
+rect = pygame.Rect(rect_x, rect_y, rect_width, rect_height)
+
+# Set the rectangle's color
+rect_color = (255, 0, 0)
+
+# Create a platform
+platform_x, platform_y = 0, 500
+platform_width, platform_height = 800, 100
+platform = pygame.Rect(platform_x, platform_y, platform_width, platform_height)
+
+# Set the platform's color
+platform_color = (0, 255, 0)
+
+# Set the speed at which the rectangle moves
+rect_speed = 1
+
+# Set the jumping variables
+jump_speed = 2
+jump_state = False
+jump_count = 10
+
+# Set the gravity variables
+gravity = 0.5
+fall_speed = 0
+
+# Main game loop
+running = True
+while running:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+
+    # Check which keys are pressed
+    keys = pygame.key.get_pressed()
+
+    # Move the rectangle left or right based on which arrow keys are pressed
+    if keys[pygame.K_LEFT]:
+        rect.x -= rect_speed
+    if keys[pygame.K_RIGHT]:
+        rect.x += rect_speed
+
+    # Check if the spacebar is pressed and the jump state is not active
+    if keys[pygame.K_SPACE] and not jump_state:
+        jump_state = True
+
+    # Check if the jump state is active
+    if jump_state:
+        rect.y -= jump_speed
+        jump_count -= 1
+
+    # Check if the jump count has reached 0
+    if jump_count <= 0:
+        jump_state = False
+        jump_count = 10
+    else:
+        fall_speed += gravity
+        rect.y += fall_speed
+
+    # Check if the rectangle is colliding with the platform
+    if rect.colliderect(platform):
+        fall_speed = 0
+        rect.bottom = platform.top
+        jump_state = False
+
+    # Clear the screen
+    screen.fill((0, 0, 0))
+
+    # Draw the rectangle
+    pygame.draw.rect(screen, rect_color, rect)
+
+    # Draw the platform
+    pygame.draw.rect(screen, platform_color, platform)
+
+    # set the screen offset
+    screen_offset_x = width/2 - rect.centerx
+    screen_offset_y = height/2 - rect.centery
+
+    # update the platform and rectangle position
+    platform.x += screen_offset_x
+    platform.y += screen_offset_y
+    rect.x += screen_offset_x
+    rect.y += screen_offset_y
+    
+    
+    # Update the display
+    pygame.display.update()
+
+# Quit Pygame
+pygame.quit()
