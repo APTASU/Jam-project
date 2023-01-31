@@ -9,32 +9,41 @@ screen = pygame.display.set_mode((width, height))
 pygame.display.set_caption("Pygame Rectangle Movement")
 
 # Create a rectangle with a starting position
-rect_x, rect_y = 50, 50
-rect_width, rect_height = 50, 50
+rect_x, rect_y = 25, 25
+rect_width, rect_height = 25, 25 
 rect = pygame.Rect(rect_x, rect_y, rect_width, rect_height)
 
 # Set the rectangle's color
 rect_color = (255, 0, 0)
 
 # Create a platform
-platform_x, platform_y = 0, 500
 platform_width, platform_height = 800, 100
-platform = pygame.Rect(platform_x, platform_y, platform_width, platform_height)
+platform0 = pygame.Rect(0, 500, platform_width, platform_height)
+platform1 = pygame.Rect(100, 700, platform_width, platform_height)
+
+platforms = []
+platforms.append(platform0)
+platforms.append(platform1)
+
 
 # Set the platform's color
 platform_color = (0, 255, 0)
+platform_color1 = (255,0,0)
+platform_colors = []
+platform_colors.append(platform_color)
+platform_colors.append(platform_color1)
 
 # Set the speed at which the rectangle moves
 rect_speed = 1
 
 # Set the jumping variables
-jump_speed = 2
+jump_speed = 0.5
 jump_state = False
-jump_count = 10
-
+jump_count = 4
+ 
 # Set the gravity variables
-gravity = 0.5
-fall_speed = 0
+gravity = 0.003
+fall_speed = 1
 
 # Main game loop
 running = True
@@ -70,10 +79,11 @@ while running:
         rect.y += fall_speed
 
     # Check if the rectangle is colliding with the platform
-    if rect.colliderect(platform):
-        fall_speed = 0
-        rect.bottom = platform.top
-        jump_state = False
+    for x in range(len(platforms)):
+      if rect.colliderect(platforms[x]):
+          fall_speed = 0
+          rect.bottom = platforms[x].top
+          jump_state = False
 
     # Clear the screen
     screen.fill((0, 0, 0))
@@ -82,15 +92,17 @@ while running:
     pygame.draw.rect(screen, rect_color, rect)
 
     # Draw the platform
-    pygame.draw.rect(screen, platform_color, platform)
+    for x in range(len(platforms)):
+      pygame.draw.rect(screen, platform_colors[x], platforms[x])
 
     # set the screen offset
     screen_offset_x = width/2 - rect.centerx
     screen_offset_y = height/2 - rect.centery
 
     # update the platform and rectangle position
-    platform.x += screen_offset_x
-    platform.y += screen_offset_y
+    for x in range(len(platforms)):
+      platforms[x].x += screen_offset_x
+      platforms[x].y += screen_offset_y
     rect.x += screen_offset_x
     rect.y += screen_offset_y
     
