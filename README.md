@@ -7,7 +7,7 @@ Noah Markworth
 
 Tobi Tevoedjre
 
-Grayson Scmidt 
+Grayson Schmidtke
 
 Tanner Swanson
 
@@ -20,7 +20,7 @@ Tobi makes battle code
 
 Tanner sorts out schedule
 
-Greyson makes platformer code
+Grayson makes platformer code
 
 ## Schedule
 Sprint 1:
