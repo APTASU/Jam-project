@@ -24,13 +24,21 @@ Grayson makes platformer code
 
 ## Schedule
 Sprint 1:
+
 Start base code - done
+
 Create base character - done
+
 starte our battle code - done
+
 Start what we think our schedule will be for the next sprint - done
 
 Sprint 2:
+
 finish battle code - not done
+
 add multiple platforms and jelly launcher - not done
+
 make more sprites/characters - not done
+
 add some of the sprites into the code - not done
