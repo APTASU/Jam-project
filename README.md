@@ -15,13 +15,13 @@ Tanner Swanson
 We have each other phone numbers
 
 ## Work Breakdown
-Noah makes chacter
+Noah makes the sprite images for the chacter to use in the platformer in the story quest
 
-Tobi makes battle code
+Tobi makes the battle code when confronted by the enemy 
 
-Tanner sorts out schedule
+Tanner sorts out schedule 
 
-Grayson makes platformer code
+Grayson makes platformer code where our jam hero will be exploring in his explorations
 
 ## Schedule
 Sprint 1:
