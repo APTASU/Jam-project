@@ -1,7 +1,7 @@
 <<<<<<< HEAD
 # Deliverables
 ## The pitch
-It's a jam in a 2d platformer apocalypse
+It's a jam in a 2d platformer apocalypse with our main chacter the slime he needs to defeat all the penut enemy infecting their world a story filled with mystry, love, and most but least action. Follow our unamed main charcater in his story to beat all the penut monsters. 
 
 ## Team Charter
 Noah Markworth
