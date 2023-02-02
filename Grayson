@@ -1,49 +1,44 @@
-import pygame
+import pygame, math
 
 # Initialize Pygame
 pygame.init()
 
 # Set the window size and title
-width, height = 800, 600
-screen = pygame.display.set_mode((width, height))
+WIDTH, HEIGHT = 800, 600
+screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Pygame Rectangle Movement")
 
+# Constants
+RECT_WIDTH, RECT_HEIGHT = 50, 50
+PLATFORM_WIDTH, PLATFORM_HEIGHT = 800, 100
+JUMP_SPEED = 2
+GRAVITY = 0.01
+BULLET_RADIUS = 5
+BULLET_SPEED = 0.5
+
 # Create a rectangle with a starting position
-rect_x, rect_y = 25, 25
-rect_width, rect_height = 25, 25 
-rect = pygame.Rect(rect_x, rect_y, rect_width, rect_height)
-
-# Set the rectangle's color
+rect = pygame.Rect(50, 50, RECT_WIDTH, RECT_HEIGHT)
 rect_color = (255, 0, 0)
-
-# Create a platform
-platform_width, platform_height = 800, 100
-platform0 = pygame.Rect(0, 500, platform_width, platform_height)
-platform1 = pygame.Rect(100, 700, platform_width, platform_height)
-
-platforms = []
-platforms.append(platform0)
-platforms.append(platform1)
-
-
-# Set the platform's color
-platform_color = (0, 255, 0)
-platform_color1 = (255,0,0)
-platform_colors = []
-platform_colors.append(platform_color)
-platform_colors.append(platform_color1)
-
-# Set the speed at which the rectangle moves
 rect_speed = 1
 
-# Set the jumping variables
-jump_speed = 0.5
+# Create a platform
+platform = pygame.Rect(0, 500, PLATFORM_WIDTH, PLATFORM_HEIGHT)
+platform_color = (0, 255, 0)
+
+# Jumping variables
 jump_state = False
-jump_count = 4
- 
-# Set the gravity variables
-gravity = 0.003
+jump_count = 10
 fall_speed = 1
+
+# Create an enemy rectangle with a starting position
+enemy = pygame.Rect(600, 300, RECT_WIDTH, RECT_HEIGHT)
+enemy_color = (0, 0, 255)
+enemy_fall_speed = 0
+enemy_gravity = 0.01
+
+# Create a bullet
+bullet = None
+bullet_fired = False
 
 # Main game loop
 running = True
@@ -51,11 +46,18 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
-
-    # Check which keys are pressed
-    keys = pygame.key.get_pressed()
+        if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+            bullet = pygame.Rect(rect.centerx, rect.centery, BULLET_RADIUS*2, BULLET_RADIUS*2)
+            mouse_x, mouse_y = pygame.mouse.get_pos()
+            bullet_dx = mouse_x - bullet.x
+            bullet_dy = mouse_y - bullet.y
+            bullet_distance = math.sqrt(bullet_dx**2 + bullet_dy**2)
+            bullet_dx /= bullet_distance
+            bullet_dy /= bullet_distance
+            bullet_fired = True
 
     # Move the rectangle left or right based on which arrow keys are pressed
+    keys = pygame.key.get_pressed()
     if keys[pygame.K_LEFT]:
         rect.x -= rect_speed
     if keys[pygame.K_RIGHT]:
@@ -65,50 +67,13 @@ while running:
     if keys[pygame.K_SPACE] and not jump_state:
         jump_state = True
 
-    # Check if the jump state is active
+    # Update jumping variables
     if jump_state:
-        rect.y -= jump_speed
+        rect.y -= JUMP_SPEED
         jump_count -= 1
-
-    # Check if the jump count has reached 0
-    if jump_count <= 0:
-        jump_state = False
-        jump_count = 10
     else:
-        fall_speed += gravity
+        fall_speed += GRAVITY
         rect.y += fall_speed
 
     # Check if the rectangle is colliding with the platform
-    for x in range(len(platforms)):
-      if rect.colliderect(platforms[x]):
-          fall_speed = 0
-          rect.bottom = platforms[x].top
-          jump_state = False
-
-    # Clear the screen
-    screen.fill((0, 0, 0))
-
-    # Draw the rectangle
-    pygame.draw.rect(screen, rect_color, rect)
-
-    # Draw the platform
-    for x in range(len(platforms)):
-      pygame.draw.rect(screen, platform_colors[x], platforms[x])
-
-    # set the screen offset
-    screen_offset_x = width/2 - rect.centerx
-    screen_offset_y = height/2 - rect.centery
-
-    # update the platform and rectangle position
-    for x in range(len(platforms)):
-      platforms[x].x += screen_offset_x
-      platforms[x].y += screen_offset_y
-    rect.x += screen_offset_x
-    rect.y += screen_offset_y
-    
-    
-    # Update the display
-    pygame.display.update()
-
-# Quit Pygame
-pygame.quit()
+    if rect.collide
