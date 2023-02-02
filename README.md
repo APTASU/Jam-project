@@ -50,3 +50,22 @@ made main character sprite
 made enemy sprite
 ![timmothy](https://user-images.githubusercontent.com/122053077/215346674-012e4fae-9efd-4397-a868-0f4ca3906529.png)
 >>>>>>> origin/noah
+
+# User Stories
+
+## Speed Runner
+I expect for the start of the game to have an intial start point that can be timed.
+I expect while playing the game their is no bugs preventing us from playing.
+I except for the end of the game to have a obvious end point
+
+## Casual
+I expect for when I pick up the game it would be easy to understand
+I expect for the start of the game to have an easy going vibe. 
+I expect while playing the game for it not to be hard. 
+I expect in the end of the game I get a good job for the hard work I accomplish during the game. 
+
+## Debugger
+I expect when i'm debugging the game that the stats in need to see shows up 
+I expect in the start of the game their will be no major bugs
+I expect in during the game play their will be no end lag
+I expect at the end of the game my that it has a proper exit screen
