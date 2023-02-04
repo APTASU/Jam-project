@@ -1,102 +1,158 @@
-import pygame
+import pygame, math
+levelFile = open('levels.txt', 'r')
 
-# Initialize Pygame
+# Initialize game engine
 pygame.init()
 
-# Set the window size and title
-width, height = 800, 600
+# Set up window
+width, height = 640, 480
 screen = pygame.display.set_mode((width, height))
-pygame.display.set_caption("Pygame Rectangle Movement")
 
-# Create a rectangle with a starting position
-rect_x, rect_y = 50, 50
-rect_width, rect_height = 50, 50
-rect = pygame.Rect(rect_x, rect_y, rect_width, rect_height)
+# Set up game objects
+clock = pygame.time.Clock()
+clockCount = 0
+fps = 165
 
-# Set the rectangle's color
-rect_color = (255, 0, 0)
+square = pygame.Rect(0, 100, 32, 32)
+square_color = (255, 255, 255)
 
-# Create a platform
-platform_x, platform_y = 0, 500
-platform_width, platform_height = 800, 100
-platform = pygame.Rect(platform_x, platform_y, platform_width, platform_height)
+platforms = []
+platform_color = (128, 128, 128)
+platformXpos = 0
+platformYpos = 0
+found_platform = False
 
-# Set the platform's color
-platform_color = (0, 255, 0)
+for line in levelFile:
+    for character in line:
+        if character == '$':
+            platform = pygame.Rect(platformXpos, platformYpos, 32, 32)
+            platforms.append(platform)
+            platformXpos = platformXpos + 32
+        if character == ' ':
+            platformXpos = platformXpos + 32
+        if character == '@':
+            platformXpos = platformXpos + 32
+            square = pygame.Rect(platformXpos, platformYpos, 32, 32)
+    platformYpos = platformYpos + 32
+    platformXpos = 0
 
-# Set the speed at which the rectangle moves
-rect_speed = 1
+enemy = pygame.Rect(300, 100, 32, 32)
+enemy_color = (255, 0, 0)
 
-# Set the jumping variables
-jump_speed = 2
+
+
+mouse_x, mouse_y = pygame.mouse.get_pos()
+angle = math.atan2(mouse_y - square.centery, mouse_x - square.centerx)
+gun_color = (255, 0, 0)
+gun_width = 3
+
+
+bullets = []
+bullet_speed = 10
+
+#test vars
+okCount = 0
+
+
+#player info
+player_speed = 4
+gravity = 0.1
+falling_speed = 0
+e_falling_speed = 0
+jump_height = 10
 jump_state = False
-jump_count = 10
 
-# Set the gravity variables
-gravity = 0.5
-fall_speed = 0
-
-# Main game loop
 running = True
 while running:
+    # Handle events
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
-
-    # Check which keys are pressed
+        if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
+            running = False
+        if event.type == pygame.MOUSEBUTTONUP and event.button == 1:
+            mouse_x, mouse_y = pygame.mouse.get_pos()
+            angle = math.atan2(mouse_y - square.centery, mouse_x - square.centerx)
+            bullet = {'start': square.center, 'angle': angle, 'color': (255, 255, 0)}
+            bullets.append(bullet)
+    
+    # Update game state
     keys = pygame.key.get_pressed()
-
-    # Move the rectangle left or right based on which arrow keys are pressed
     if keys[pygame.K_LEFT]:
-        rect.x -= rect_speed
+        square.x -= player_speed
     if keys[pygame.K_RIGHT]:
-        rect.x += rect_speed
-
-    # Check if the spacebar is pressed and the jump state is not active
-    if keys[pygame.K_SPACE] and not jump_state:
+        square.x += player_speed
+    if keys[pygame.K_UP] and not jump_state:
         jump_state = True
 
-    # Check if the jump state is active
+
     if jump_state:
-        rect.y -= jump_speed
-        jump_count -= 1
+        square.y -= player_speed
+        jump_height -= 1
 
-    # Check if the jump count has reached 0
-    if jump_count <= 0:
-        jump_state = False
-        jump_count = 10
-    else:
-        fall_speed += gravity
-        rect.y += fall_speed
+    for platform in platforms:
+        if platform.topleft <= square.center <= platform.topright:
+            if square.bottom >= platform.top:
+                if falling_speed != 0:
+                        falling_speed = 0
+                        jump_state = False
+                        square.bottom = platform.top
 
-    # Check if the rectangle is colliding with the platform
-    if rect.colliderect(platform):
-        fall_speed = 0
-        rect.bottom = platform.top
-        jump_state = False
+    if square.bottom < platform.top:
+        falling_speed += gravity
+    square.y += falling_speed
 
-    # Clear the screen
+    if enemy.bottom < platform.top:
+        e_falling_speed += gravity
+    enemy.y += e_falling_speed
+    if enemy.bottom >= platform.top:
+        e_falling_speed = 0
+        enemy.bottom = platform.top
+
+
+
+    mouse_x, mouse_y = pygame.mouse.get_pos()
+    angle = math.atan2(mouse_y - square.centery, mouse_x - square.centerx)
+
+    # Set gun position
+    gun_end = (square.centerx + 20 * math.cos(angle), square.centery + 20 * math.sin(angle))
+
+    # Draw game objects
     screen.fill((0, 0, 0))
 
-    # Draw the rectangle
-    pygame.draw.rect(screen, rect_color, rect)
+    for platform in platforms:
+        pygame.draw.rect(screen, platform_color, platform)
 
-    # Draw the platform
-    pygame.draw.rect(screen, platform_color, platform)
 
-    # set the screen offset
-    screen_offset_x = width/2 - rect.centerx
-    screen_offset_y = height/2 - rect.centery
+    
+
+    pygame.draw.rect(screen, square_color, square)
+    pygame.draw.rect(screen, enemy_color, enemy)
+    pygame.draw.line(screen, (255, 0, 0), (square.centerx, square.centery), (gun_end), gun_width)
+
+    screen_offset_x = width/2 - square.centerx
+    screen_offset_y = height/2 - square.centery
 
     # update the platform and rectangle position
-    platform.x += screen_offset_x
-    platform.y += screen_offset_y
-    rect.x += screen_offset_x
-    rect.y += screen_offset_y
-    
-    
-    # Update the display
-    pygame.display.update()
+    for platform in platforms:
+        platform.x += screen_offset_x
+        platform.y += screen_offset_y
+    square.x += screen_offset_x
+    square.y += screen_offset_y
+    enemy.x += screen_offset_x
+    enemy.y += screen_offset_y
 
-# Quit Pygame
+    for bullet in bullets:
+        bullet_x = bullet['start'][0] + bullet_speed * math.cos(bullet['angle']) + screen_offset_x
+        bullet_y = bullet['start'][1] + bullet_speed * math.sin(bullet['angle']) + screen_offset_y
+        bullet_end = (bullet_x, bullet_y)
+        pygame.draw.circle(screen, bullet['color'], (int(bullet_x), int(bullet_y)), 2, 3)
+        bullet['start'] = bullet_end
+
+    pygame.display.update()
+    
+    # Control frame rate
+    clock.tick(fps)
+
+# Clean up
 pygame.quit()
