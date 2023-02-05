@@ -59,11 +59,12 @@ player_speed = 4
 gravity = 0.1
 falling_speed = 0
 e_falling_speed = 0
-jump_height = 10
+jump_height = 5
 jump_state = False
 
 running = True
 while running:
+    v = square.y
     # Handle events
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -87,16 +88,10 @@ while running:
 
 
     if jump_state:
-        square.y -= player_speed
-        jump_height -= 1
+        square.y -= jump_height
+        
 
-    for platform in platforms:
-        if platform.topleft <= square.center <= platform.topright:
-            if square.bottom >= platform.top and square.top <= platform.bottom:
-                if falling_speed != 0:
-                        falling_speed = 0
-                        jump_state = False
-                        square.bottom = platform.top
+    
 
     if square.bottom < platform.top:
         falling_speed += gravity
@@ -105,10 +100,19 @@ while running:
     if enemy.bottom < platform.top:
         e_falling_speed += gravity
     enemy.y += e_falling_speed
+    
     if enemy.bottom >= platform.top:
         e_falling_speed = 0
         enemy.bottom = platform.top
-
+        
+    v -= square.y
+    for platform in platforms:
+        if platform.topleft <= square.center <= platform.topright:
+            if square.bottom >= platform.top and square.top <= platform.top:
+                if v <= 0:
+                        falling_speed = 0
+                        jump_state = False
+                        square.bottom = platform.top
 
 
     mouse_x, mouse_y = pygame.mouse.get_pos()
