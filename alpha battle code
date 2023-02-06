@@ -17,7 +17,7 @@ def ecrit():
   Hpre = edmg - Edef
   return Hpre
 
-while Hp>=0:
+while Hp>0:
   ecrit()
   einku = ecrit()
   Hp = Hp - einku
@@ -26,4 +26,3 @@ while Hp>=0:
     
   elif Hp >0:
     print(Hp)
-  
