@@ -37,13 +37,13 @@ Start what we think our schedule will be for the next sprint - done
 
 Sprint 2:
 
-finish battle code - not done / Tobi
+finish battle code - done / Tobi
 
-add multiple platforms and jelly launcher - not done / Grayson
+add multiple platforms and jelly launcher - done / Grayson
 
-make more sprites/characters - working on it / Noah
+make more sprites/characters - done / Noah
 
-add some of the sprites into the code - not done / Noah and Grayson
+add some of the sprites into the code - done / Noah and Grayson
 =======
 
 made main character sprite
@@ -51,6 +51,31 @@ made main character sprite
 made enemy sprite
 ![timmothy](https://user-images.githubusercontent.com/122053077/215346674-012e4fae-9efd-4397-a868-0f4ca3906529.png)
 
+Start user stories on our product/game - done / Tobi
+
+locate risks in our plan - done / Tanner
+
+Add tile sets to our code - done / Noah
+
+Sprint 3:
+
+Create Diagram of Code - Not done
+
+Finish up our code - not done
+
+Start testing our code and get ready for our presentation in Sprint 4 - Not done
+
+Create a pitch/presentation for our code review Sprint 4 - Not done
+
+Sprint 4:
+
+Finish testing our code - not done
+
+Get our code review ready - not done
+
+Do a test and find errors in our code - not done
+
+fix any errors in our code after the test - not done
 
 # User Stories
 
@@ -72,29 +97,5 @@ I expect in during the game play their will be no end lag
 I expect at the end of the game my that it has a proper exit screen
 =======
 
-Start user stories on our product/game - not done / Tobi
 
-locate risks in our plan - not done / Tanner
-
-Add tile sets to our code - not done / Noah
-
-Sprint 3:
-
-Create Diagram of Code - Not done
-
-Finish up our code - not done
-
-Start testing our code and get ready for our presentation in Sprint 4 - Not done
-
-Create a pitch/presentation for our code review Sprint 4 - Not done
-
-Sprint 4:
-
-Finish testing our code - not done
-
-Get our code review ready - not done
-
-Do a test and find errors in our code - not done
-
-fix any errors in our code after the test - not done
 
