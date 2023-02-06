@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Deliverables
 ## The pitch
 It's a jam in a 2d platformer apocalypse with our main chacter the slime he needs to defeat all the penut enemy infecting their world a story filled with mystry, love, and most but least action. Follow our unamed main charcater in his story to beat all the penut monsters. 
@@ -24,6 +23,8 @@ Tanner sorts out schedule
 Grayson makes platformer code where our jam hero will be exploring in his explorations
 
 ## Schedule
+Schedule:
+
 Sprint 1:
 
 Start base code - done
@@ -36,17 +37,42 @@ Start what we think our schedule will be for the next sprint - done
 
 Sprint 2:
 
-finish battle code - not done
+finish battle code - not done / Tobi
 
-add multiple platforms and jelly launcher - not done
+add multiple platforms and jelly launcher - not done / Grayson
 
-make more sprites/characters - not done
+make more sprites/characters - working on it / Noah
 
-add some of the sprites into the code - not done
+add some of the sprites into the code - not done / Noah and Grayson
 =======
 
 made main character sprite
 ![han (1)](https://user-images.githubusercontent.com/122053077/215345959-4c911b0f-39a4-4c03-851c-b3fc6a46bba6.png)
 made enemy sprite
 ![timmothy](https://user-images.githubusercontent.com/122053077/215346674-012e4fae-9efd-4397-a868-0f4ca3906529.png)
->>>>>>> origin/noah
+
+Start user stories on our product/game - not done / Tobi
+
+locate risks in our plan - not done / Tanner
+
+Add tile sets to our code - not done / Noah
+
+Sprint 3:
+
+Create Diagram of Code - Not done
+
+Finish up our code - not done
+
+Start testing our code and get ready for our presentation in Sprint 4 - Not done
+
+Create a pitch/presentation for our code review Sprint 4 - Not done
+
+Sprint 4:
+
+Finish testing our code - not done
+
+Get our code review ready - not done
+
+Do a test and find errors in our code - not done
+
+fix any errors in our code after the test - not done
