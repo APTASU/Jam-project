@@ -32,6 +32,7 @@ class Enemies:
             return self.boss2Enemy()
         elif self.enemy_type == 9:
             return self.boss3Enemy()
+        
     
     #find if the enemy is touching a platform
     
@@ -43,6 +44,7 @@ class Enemies:
             return [self.enemy_v, self.grounded]
         else:
             self.grounded = False
+           
             return [self.enemy_v, self.grounded]
         
     
@@ -57,29 +59,32 @@ class Enemies:
         return [self.enemy.x,self.enemy.y,self.enemy_v]
     
     def walkEnemy(self):
+        random_modifier = random.randint(0,1)
         if self.player.x > self.enemy.x:
-            self.enemy.x += 1
+            self.enemy.x += random_modifier + 1
         elif self.player.x < self.enemy.x:
-            self.enemy.x -= 1
+            self.enemy.x -= random_modifier + 1
         self.enemy_v += self.gravity
         self.enemy.y += self.enemy_v
         return [self.enemy.x ,self.enemy.y, self.enemy_v]
         
     def runEnemy(self):
+        random_modifier = random.randint(0,1)
         if self.player.x > self.enemy.x:
-            self.enemy.x += 3
+            self.enemy.x += random_modifier + 3
         elif self.player.x < self.enemy.x:
-            self.enemy.x -= 3
+            self.enemy.x -= random_modifier + 3
         self.enemy_v += self.gravity
         self.enemy.y += self.enemy_v
         return [self.enemy.x ,self.enemy.y,self.enemy_v]
     
     def jumpingEnemy(self):
+        random_modifier = random.randint(0,1)
         jump_power = 5
         if self.player.x > self.enemy.x:
-            self.enemy.x += 2
+            self.enemy.x += random_modifier + 2
         elif self.player.x < self.enemy.x:
-            self.enemy.x -= 2
+            self.enemy.x -= random_modifier + 2
         if self.grounded == True:
             self.enemy_v -= jump_power
         self.enemy_v += self.gravity
@@ -88,30 +93,32 @@ class Enemies:
         
     def slowFlyEnemy(self):
         angle = math.atan2(self.player.centery - self.enemy.centery  , self.player.centerx - self.enemy.centerx )
+        random_modifier = random.randint(0,1)
         if self.player.x > self.enemy.x:
-            self.enemy.x += 1.5 * math.cos(angle)
+            self.enemy.x += random_modifier + 1.5 * math.cos(angle)
         if self.player.x < self.enemy.x:
-            self.enemy.x += 1 * math.cos(angle) 
+            self.enemy.x += random_modifier + 1.5 * math.cos(angle) 
         if self.player.y > self.enemy.y:
-            self.enemy.y += 1.5 * math.sin(angle)
+            self.enemy.y += random_modifier + 1.5 * math.sin(angle)
         if self.player.y < self.enemy.y:
-            self.enemy.y += 1 * math.sin(angle)
+            self.enemy.y += random_modifier + 1.5 * math.sin(angle)
         return [self.enemy.x ,self.enemy.y,self.enemy_v]
         
     def fastFlyEnemy(self):
         angle = math.atan2(self.player.centery - self.enemy.centery  , self.player.centerx - self.enemy.centerx )
+        random_modifier = random.randint(0,1)
         if self.player.x > self.enemy.x:
-            self.enemy.x += 3 * math.cos(angle)
+            self.enemy.x += random_modifier + 3 * math.cos(angle)
         if self.player.x < self.enemy.x:
-            self.enemy.x += 3 * math.cos(angle) 
+            self.enemy.x += random_modifier + 3 * math.cos(angle) 
         if self.player.y > self.enemy.y:
-            self.enemy.y += 3 * math.sin(angle)
+            self.enemy.y += random_modifier + 3 * math.sin(angle)
         if self.player.y < self.enemy.y:
-            self.enemy.y += 3 * math.sin(angle)
+            self.enemy.y += random_modifier + 3 * math.sin(angle)
         return [self.enemy.x ,self.enemy.y,self.enemy_v]
         
     def speraticEnemy(self):
-        jump_power = random.randint(1,6)
+        jump_power = random.randint(0,6)
         if self.player.x > self.enemy.x:
             self.enemy.x += random.randint(-2,6)
         elif self.player.x < self.enemy.x:
@@ -123,11 +130,32 @@ class Enemies:
         return [self.enemy.x ,self.enemy.y,self.enemy_v]
         
     def bossEnemy(self):
-        print("I really hate small talk")
+        random_modifier = random.randint(0,1)
+        jump_power = 7
+        if self.player.x > self.enemy.x:
+            self.enemy.x += random_modifier + 2
+        elif self.player.x < self.enemy.x:
+            self.enemy.x -= random_modifier + 2
+        if self.grounded == True:
+            self.enemy_v -= jump_power
+        self.enemy_v += self.gravity
+        self.enemy.y += self.enemy_v
+        return [self.enemy.x ,self.enemy.y,self.enemy_v,]
         
     def boss2Enemy(self):
-        print("oh... ok")
+        random_modifier = random.randint(0,1)
+        angle = math.atan2(self.player.centery - self.enemy.centery  , self.player.centerx - self.enemy.centerx )
+        if self.player.x > self.enemy.x:
+            self.enemy.x += random_modifier + 1.5 * math.cos(angle)
+        if self.player.x < self.enemy.x:
+            self.enemy.x += random_modifier + 1.5 * math.cos(angle) 
+        if self.player.y > self.enemy.y:
+            self.enemy.y += random_modifier + 1.5 * math.sin(angle)
+        if self.player.y < self.enemy.y:
+            self.enemy.y += random_modifier + 1.5 * math.sin(angle)
+        return [self.enemy.x ,self.enemy.y,self.enemy_v]
         
     def boss3Enemy(self):
-        print("bye")
-    
+        self.enemy_v += self.gravity
+        self.enemy.y += self.enemy_v
+        return [self.enemy.x,self.enemy.y,self.enemy_v]
