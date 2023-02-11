@@ -1,11 +1,11 @@
 import pygame, math, random
-from Enemies import Enemies
+from enemies import Enemies
 levelFile = open('levels.txt', 'r')
 
 # Initialize game engine
 pygame.init()
 
-enemy_type = 6
+
 # Set up window
 width, height = 640, 480
 screen = pygame.display.set_mode((width, height))
@@ -24,6 +24,8 @@ platformXpos = 0
 platformYpos = 0
 found_platform = False
 
+enemies = []
+
 for line in levelFile:
     for character in line:
         if character == '$':
@@ -35,10 +37,50 @@ for line in levelFile:
         if character == '@':
             platformXpos = platformXpos + 32
             square = pygame.Rect(platformXpos, platformYpos, 30, 30)
+        if character == '0':
+            enemy = pygame.Rect(platformXpos,platformYpos, 32,32)
+            enemies.append([enemy,0,0,False])
+            platformXpos = platformXpos + 32
+        if character == '1':
+            enemy = pygame.Rect(platformXpos,platformYpos, 32,32)
+            enemies.append([enemy,1,0,False])
+            platformXpos = platformXpos + 32
+        if character == '2':
+            enemy = pygame.Rect(platformXpos,platformYpos, 32,32)
+            enemies.append([enemy,2,0,False])
+            platformXpos = platformXpos + 32
+        if character == '3':
+            enemy = pygame.Rect(platformXpos,platformYpos, 32,32)
+            enemies.append([enemy,3,0,False])
+            platformXpos = platformXpos + 32
+        if character == '4':
+            enemy = pygame.Rect(platformXpos,platformYpos, 32,32)
+            enemies.append([enemy,4,0,False])
+            platformXpos = platformXpos + 32
+        if character == '5':
+            enemy = pygame.Rect(platformXpos,platformYpos, 32,32)
+            enemies.append([enemy,5,0,False])
+            platformXpos = platformXpos + 32
+        if character == '6':
+            enemy = pygame.Rect(platformXpos,platformYpos, 32,32)
+            enemies.append([enemy,6,0,False])
+            platformXpos = platformXpos + 32
+        if character == '7':
+            enemy = pygame.Rect(platformXpos,platformYpos, 64,64)
+            enemies.append([enemy,7,0,False,0])
+            platformXpos = platformXpos + 32
+        if character == '8':
+            enemy = pygame.Rect(platformXpos,platformYpos, 64,64)
+            enemies.append([enemy,8,0,False])
+            platformXpos = platformXpos + 32
+        if character == '9':
+            enemy = pygame.Rect(platformXpos,platformYpos, 128,128)
+            enemies.append([enemy,0,0,False])
+            platformXpos = platformXpos + 32
     platformYpos = platformYpos + 32
     platformXpos = 0
 
-enemy = pygame.Rect(300, 100, 32, 32)
+
 enemy_color = (255, 0, 0)
 
 
@@ -62,7 +104,7 @@ z=0
 player_speed = 4
 gravity = 0.1
 falling_speed = 0
-enemy_v = 0 
+ 
 jump_height = 5
 jump_state = False
 
@@ -93,23 +135,24 @@ while running:
 
     if jump_state:
         square.y -= jump_height
-        
-        
+    #Handle enemy movement
+    for enemy in enemies:
+        if square.x + 500 > enemy[0].x > square.x - 500 and square.y + 500 > enemy[0].y > square.y - 500:
+            enemy[3] = False
+            for platform in platforms:
+                enemy_ground = Enemies(enemy[0],None,None,None,enemy[2],platform,None)
+                y = enemy_ground.groundedEnemy()
+                enemy[2] = y[0]
+                if y[1]:
+                  enemy[3] = y[1]
+                    
+            enemy_move = Enemies(enemy[0], square,enemy[1], gravity, enemy[2],None,enemy[3])
+            x = enemy_move.enemyType()
+            enemy[0].x = x[0]
+            enemy[0].y = x[1]
+            enemy[2] = x[2]  
+      
     
-    grounded = ["",False]
-    for platform in platforms:
-        enemy_ground = Enemies(enemy,None,None,None,enemy_v,platform,None)
-        y = enemy_ground.groundedEnemy()
-        enemy_v = y[0]
-        if y[1]:
-          grounded = y.copy()
-            
-    
-    enemy_move = Enemies(enemy, square,enemy_type, gravity, enemy_v,None,grounded[1])
-    x = enemy_move.enemyType()
-    enemy.x = x[0]
-    enemy.y = x[1]
-    enemy_v = x[2]
     
       
 
@@ -141,13 +184,16 @@ while running:
     screen.fill((0, 0, 0))
 
     for platform in platforms:
-        pygame.draw.rect(screen, platform_color, platform)
+        if square.x + 500 > platform.x > square.x - 500 and square.y + 500 > platform.y > square.y - 500:
+            pygame.draw.rect(screen, platform_color, platform)
 
-
+    for enemy in enemies:
+        if square.x + 500 > enemy[0].x > square.x - 500 and square.y + 500 > enemy[0].y > square.y - 500:
+            pygame.draw.rect(screen, enemy_color, enemy[0])
     
 
     pygame.draw.rect(screen, square_color, square)
-    pygame.draw.rect(screen, enemy_color, enemy)
+    
     pygame.draw.line(screen, (255, 0, 0), (square.centerx, square.centery), (gun_end), gun_width)
 
     screen_offset_x = width/2 - square.centerx
@@ -159,8 +205,9 @@ while running:
         platform.y += screen_offset_y
     square.x += screen_offset_x
     square.y += screen_offset_y
-    enemy.x += screen_offset_x
-    enemy.y += screen_offset_y
+    for enemy in enemies:
+      enemy[0].x += screen_offset_x
+      enemy[0].y += screen_offset_y
 
     for bullet in bullets:
         bullet_x = bullet['start'][0] + bullet_speed * math.cos(bullet['angle']) + screen_offset_x
