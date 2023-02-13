@@ -59,7 +59,7 @@ Add tile sets to our code - done / Noah
 
 Sprint 3:
 
-Create Diagram of Code - Not done
+Create Diagram of Code - done
 
 Finish up our code - not done
 
