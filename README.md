@@ -1,6 +1,6 @@
 # Deliverables
 ## The pitch
-It's a jam in a 2d platformer apocalypse with our main chacter the slime he needs to defeat all the peanut enemy infecting their world a story filled with mystery, love, and most but least action. Follow our unamed main charcater in his story to beat all the penut monsters. 
+A peanut butter apocalypse where the jam is fighting off all of the peanut butter monsters. The Peanut butter monsters come in waves and the Jam protagonist has to eliminate all of the monsters. If he or she doesn't then he loses. 
 
 ## Team Charter
 Noah Markworth
