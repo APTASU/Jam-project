@@ -1,6 +1,6 @@
 # Deliverables
 ## The pitch
-A peanut butter apocalypse where the jam is fighting off all of the peanut butter monsters. The Peanut butter monsters come in waves and the Jam protagonist has to eliminate all of the monsters. If he or she doesn't then he loses. 
+In a world where peanut butter has taken over and turned into monstrous creatures, the only hope for humanity is a brave jam who must fight off wave after wave of these peanut butter monsters. The jam protagonist, armed with their sticky, sweet powers, faces off against the relentless horde of peanut butter creatures, determined to save the world from their creamy grasp. However, the task is not easy, as the peanut butter monsters come in ever-increasing numbers, forcing the jam hero to use their cunning and strength to survive. With each successful wave defeated, the stakes become higher and the danger grows, but the jam remains steadfast, refusing to back down in the face of danger. Failure is not an option, as the fate of the world rests on the jam's shoulders. If they cannot eliminate all of the peanut butter monsters, the world as we know it will be lost forever. 
 
 ## Team Charter
 Noah Markworth
