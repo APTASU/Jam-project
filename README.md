@@ -61,11 +61,11 @@ Sprint 3:
 
 Create Diagram of Code - done
 
-Finish up our code - not done
+Finish up our code - still working on it
 
-Start testing our code and get ready for our presentation in Sprint 4 - Not done
+Start testing our code and get ready for our presentation in Sprint 4 - done
 
-Create a pitch/presentation for our code review Sprint 4 - Not done
+Create a pitch/presentation for our code review Sprint 4 - done
 
 Sprint 4:
 
