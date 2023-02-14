@@ -5,6 +5,9 @@ levelFile = open('levels.txt', 'r')
 # Initialize game engine
 pygame.init()
 
+score = 100
+
+
 
 # Set up window
 width, height = 640, 480
@@ -94,7 +97,8 @@ gun_width = 3
 
 
 bullets = []
-bullet_speed = 10
+bullet_speed = 8
+bullets_allowed = 3
 
 #test vars
 okCount = 0
@@ -151,6 +155,19 @@ while running:
             enemy[0].x = x[0]
             enemy[0].y = x[1]
             enemy[2] = x[2]  
+
+    #if enemy is hit by bullet
+    for enemy in enemies:
+        for bullet in bullets:
+            if (enemy[0].x - 16) <= bullet['start'][0] <= (enemy[0].x + 16):
+                if (enemy[0].y - 16) <= bullet['start'][1] <= (enemy[0].y + 16):
+                    enemies.remove(enemy)
+                    score += 100
+    
+    for enemy in enemies:
+        if (enemy[0].x - 16) <= square.x <= (enemy[0].x + 16):
+            if (enemy[0].y - 16) <= square.y <= (enemy[0].y + 16):   
+                #IMPLEMENT DEATH SCREEN
       
     
     
@@ -208,6 +225,9 @@ while running:
     for enemy in enemies:
       enemy[0].x += screen_offset_x
       enemy[0].y += screen_offset_y
+
+    if len(bullets) > bullets_allowed:
+        del bullets[0]
 
     for bullet in bullets:
         bullet_x = bullet['start'][0] + bullet_speed * math.cos(bullet['angle']) + screen_offset_x
