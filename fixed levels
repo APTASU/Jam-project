@@ -1,11 +1,12 @@
 import pygame, math
+from math import acos, degrees
 levelFile = open('levels.txt', 'r')
 
 # Initialize game engine
 pygame.init()
 
 # Set up window
-width, height = 640, 480
+width, height = 1920, 1080
 screen = pygame.display.set_mode((width, height))
 
 # Set up game objects
@@ -15,6 +16,10 @@ fps = 165
 
 square = pygame.Rect(0, 100, 32, 32)
 square_color = (255, 255, 255)
+playerIMG = pygame.image.load('player.png')
+playerIMG = pygame.transform.scale(playerIMG, (36,36))
+playerIMG.convert()
+player = playerIMG.get_rect()
 
 platforms = []
 platform_color = (128, 128, 128)
@@ -45,10 +50,19 @@ mouse_x, mouse_y = pygame.mouse.get_pos()
 angle = math.atan2(mouse_y - square.centery, mouse_x - square.centerx)
 gun_color = (255, 0, 0)
 gun_width = 3
+gunIMG = pygame.image.load('gun.png')
+gunIMG = pygame.transform.scale(gunIMG, (36,36))
+gunIMG.convert()
+gun = gunIMG.get_rect()
 
 
+bulletAmount = 3
 bullets = []
-bullet_speed = 10
+bullet_speed = 1
+bulletIMG = pygame.image.load('bullet.png')
+bulletIMG = pygame.transform.scale(playerIMG, (36,36))
+bulletIMG.convert()
+bullet = bulletIMG.get_rect()
 
 #test vars
 okCount = 0
@@ -130,9 +144,9 @@ while running:
 
     
 
-    pygame.draw.rect(screen, square_color, square)
     pygame.draw.rect(screen, enemy_color, enemy)
-    pygame.draw.line(screen, (255, 0, 0), (square.centerx, square.centery), (gun_end), gun_width)
+    screen.blit(playerIMG, square)
+    #screen.blit(gunIMG, (square[0]+16, square[1]))
 
     screen_offset_x = width/2 - square.centerx
     screen_offset_y = height/2 - square.centery
@@ -146,11 +160,14 @@ while running:
     enemy.x += screen_offset_x
     enemy.y += screen_offset_y
 
+    if len(bullets) > 3:
+        del bullets[0]
     for bullet in bullets:
         bullet_x = bullet['start'][0] + bullet_speed * math.cos(bullet['angle']) + screen_offset_x
         bullet_y = bullet['start'][1] + bullet_speed * math.sin(bullet['angle']) + screen_offset_y
         bullet_end = (bullet_x, bullet_y)
         pygame.draw.circle(screen, bullet['color'], (int(bullet_x), int(bullet_y)), 2, 3)
+        #screen.blit('bullet.png)', bullet_end)
         bullet['start'] = bullet_end
 
     pygame.display.update()
