@@ -98,4 +98,6 @@ I expect at the end of the game my that it has a proper exit screen
 =======
 [This is the User Stories Chart](https://lucid.app/lucidchart/95656072-dc2e-44dd-800b-6fb2fa70e74c/edit?viewport_loc=31%2C-65%2C1379%2C1513%2C0_0&invitationId=inv_9d513ebe-b1a5-4257-9d4b-bb3141e820e6)
 
+Scrum Board:
+https://docs.google.com/document/d/1EI24T2cM3loZcJ33MtfUCRMzos9vfOgM9TwCbWc7TYA/edit?usp=sharing
 
